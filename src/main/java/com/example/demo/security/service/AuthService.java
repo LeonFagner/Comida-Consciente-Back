@@ -1,6 +1,6 @@
 package com.example.demo.service;
 
-import com.example.demo.dto.LoginRequest;
+import com.example.demo.dto.LoginRequestDTO;
 import com.example.demo.security.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -21,9 +21,9 @@ public class AuthService {
     @Autowired
     private UserDetailsService userDetailsService;
 
-    public String login(LoginRequest request){
+    public String login(LoginRequestDTO request){
         Authentication auth = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword())
+                new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword())
 
         );
 
