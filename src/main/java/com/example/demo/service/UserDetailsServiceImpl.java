@@ -17,7 +17,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
         return User
                 .withUsername("admin")
-                .password("{noop}admin") // senha sem encoding, apenas para teste
+                .password("{noop}admin")
                 .roles("USER")
                 .build();
     }

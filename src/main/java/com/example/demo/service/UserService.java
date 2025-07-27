@@ -7,11 +7,13 @@ import com.example.demo.enums.UserType;
 import com.example.demo.model.User;
 import com.example.demo.repository.UserRepository;
 import org.modelmapper.ModelMapper;
+
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
+import java.util.List;
+
 
 @Service
 public class UserService {
@@ -47,15 +49,18 @@ public class UserService {
     }
 
 
-    public UserResponseDTO getUserById(UUID id) {
+    public UserResponseDTO getUserById(String id) {
+
         User user = userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new RuntimeException("User "+ id +" not found "  ));
         return modelMapper.map(user, UserResponseDTO.class);
     }
 
-    public UserResponseDTO updateUser(UUID id, UserRequestDTO userRequest) {
+
+
+    public UserResponseDTO updateUser(String id, UserRequestDTO userRequest) {
         User user = userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new RuntimeException("User "+ id +" not found " ));
 
         user.setName(userRequest.getName());
         user.setEmail(userRequest.getEmail());
@@ -69,12 +74,23 @@ public class UserService {
         return modelMapper.map(updatedUser, UserResponseDTO.class);
     }
 
-    public void deleteUser(UUID id) {
-        if (!userRepository.existsById(id)) {
-            throw new RuntimeException("User not found");
+    public void deleteUser(String id) {
+
+        if (!userRepository.existsById(id)){
+            throw new RuntimeException("User "+ id +" not found " );
         }
         userRepository.deleteById(id);
     }
+
+    public List<UserResponseDTO> getAllUsers() {
+        return userRepository.findAll()
+                .stream()
+                .map(user -> modelMapper.map(user, UserResponseDTO.class))
+                .toList();
+    }
+
+
+
 
     public String login(LoginRequestDTO loginRequest) {
         User user = userRepository.findByEmail(loginRequest.getEmail())
