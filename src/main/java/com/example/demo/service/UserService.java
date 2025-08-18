@@ -41,8 +41,9 @@ public class UserService {
         user.setPasswordHash(passwordEncoder.encode(userRequest.getPassword()));
         user.setCreatedAt(LocalDateTime.now());
         user.setActive(true);
+        user.setCpf(userRequest.getCpf());
+        user.setPersonalInterest(user.getPersonalInterest());
 
-        user.setUserType(UserType.valueOf(userRequest.getUserType().toUpperCase()));
 
         User savedUser = userRepository.save(user);
         return modelMapper.map(savedUser, UserResponseDTO.class);
@@ -66,7 +67,8 @@ public class UserService {
         user.setEmail(userRequest.getEmail());
         user.setPhone(userRequest.getPhone());
         user.setAddress(userRequest.getAddress());
-        user.setUserType(UserType.valueOf(userRequest.getUserType()));
+        user.setCpf(userRequest.getCpf());
+        user.setPersonalInterest(user.getPersonalInterest());
 
         user.setUpdatedAt(LocalDateTime.now());
 

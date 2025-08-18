@@ -26,6 +26,10 @@ public class UserResponseDTO {
 
     private String address;
 
+    private String cpf;
+
+    private String personalInterest;
+
 
     private boolean active;
 
@@ -45,11 +49,12 @@ public class UserResponseDTO {
         this.email = user.getEmail();
         this.address = user.getAddress();
         this.phone = user.getPhone();
-        this.userType = user.getUserType();
+        this.userType = UserType.valueOf(user.getUserType());
         this.active = user.isActive();
         this.createdAt = user.getCreatedAt();
         this.updatedAt = user.getUpdatedAt();
         this.token = user.getResetToken();
+        this.cpf = user.getCpf();
 
     }
 

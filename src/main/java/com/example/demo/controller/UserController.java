@@ -31,9 +31,10 @@ public class UserController {
     public ResponseEntity<List<UserResponseDTO>> getAllUsers(@RequestHeader("Authorization") String token) {
 
         User loggedUser = authService.getUserFromToken(token);
-        if (loggedUser.getUserType() != UserType.ADMIN) {
+        if (!"ADMIN".equals(loggedUser.getUserType())) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Access denied");
         }
+
 
         return ResponseEntity.ok(userService.getAllUsers());
     }

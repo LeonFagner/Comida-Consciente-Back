@@ -1,6 +1,5 @@
 package com.example.demo.model;
 
-import com.example.demo.enums.UserType;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -10,19 +9,19 @@ import org.hibernate.annotations.UpdateTimestamp;
 import java.time.LocalDateTime;
 
 @Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "user_type", discriminatorType = DiscriminatorType.STRING)
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Setter
-@Getter
 @Table(name = "users")
-public class User {
+public  class User {
 
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
     @Column(length = 36, columnDefinition = "char(36)")
-    private String id; // ALTERADO: UUID -> String
+    private String id;
 
     @Column(nullable = false, unique = true)
     private String email;
@@ -30,12 +29,12 @@ public class User {
     @Column(name = "password_hash", nullable = false)
     private String passwordHash;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "user_type")
-    private UserType userType;
-
     @Column(nullable = false)
     private String name;
+
+    private String cpf;
+
+    private String personalInterest;
 
     private String phone;
 
@@ -53,4 +52,13 @@ public class User {
     @UpdateTimestamp
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+
+
+    public String getUserType() {
+        if (this instanceof Admin) return "ADMIN";
+        if (this instanceof Establishment) return "ESTABLISHMENT";
+        if (this instanceof Person) return "PERSON";
+        if (this instanceof ONG) return "ONG";
+        return "UNKNOWN";
+    }
 }

@@ -1,4 +1,9 @@
 package com.example.demo.model;
 
-public class ONG {
+import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Entity;
+
+@Entity
+@DiscriminatorValue("ONG")
+public class ONG extends User {
 }
