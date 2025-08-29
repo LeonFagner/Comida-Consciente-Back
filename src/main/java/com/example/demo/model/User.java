@@ -58,7 +58,7 @@ public  class User {
         if (this instanceof Admin) return "ADMIN";
         if (this instanceof Establishment) return "ESTABLISHMENT";
         if (this instanceof Person) return "PERSON";
-        if (this instanceof ONG) return "ONG";
+        if (this instanceof Ong) return "ONG";
         return "UNKNOWN";
     }
 }

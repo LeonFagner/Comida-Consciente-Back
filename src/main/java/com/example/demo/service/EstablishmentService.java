@@ -11,7 +11,7 @@ import com.example.demo.model.Establishment;
 import com.example.demo.repository.EstablishmentRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
