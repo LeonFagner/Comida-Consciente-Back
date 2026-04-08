@@ -9,7 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
+
 import java.util.List;
 
 @RestController
@@ -35,6 +35,15 @@ public class OngController {
     public ResponseEntity<OngResponseDTO> getById(@PathVariable String id) {
         OngResponseDTO ong = ongService.getById(id);
         return ResponseEntity.ok(ong);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<OngResponseDTO> update(
+            @PathVariable String id,
+            @RequestBody OngRequestDTO dto
+    ) {
+        OngResponseDTO updated = ongService.updateOng(id, dto);
+        return ResponseEntity.ok(updated);
     }
 
 }

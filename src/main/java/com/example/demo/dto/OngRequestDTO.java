@@ -16,6 +16,7 @@ public class OngRequestDTO {
     private String phone;
     private String address;
 
+
     private String cnpj;
     private String institutionType;
     private Integer storageCapacity;
