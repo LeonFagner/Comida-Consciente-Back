@@ -1,5 +1,22 @@
 package com.example.demo.enums;
 
+
+
+
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+
 public enum DonationCategory {
-    FRUITS, VEGETABLES, NON_PERISHABLES, BREAD, DAIRY, OTHER
+
+    OTHER,
+    VEGETABLES,
+    DAIRY,
+    NON_PERISHABLES,
+    BREAD,
+    FRUITS;
+
+    @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
+    public static DonationCategory fromString(String value) {
+        return DonationCategory.valueOf(value.toUpperCase());
+    }
 }

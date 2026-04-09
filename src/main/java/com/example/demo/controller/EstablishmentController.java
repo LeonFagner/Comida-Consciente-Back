@@ -37,10 +37,7 @@ public class EstablishmentController {
     public ResponseEntity<List<EstablishmentResponseDTO>> getAllEstablishment(@RequestHeader("Authorization") String token) {
 
 
-//        Establishment loggedUser = (Establishment) authService.getUserFromToken(token);
-////        if (!"ADMIN".equals(loggedUser.getUserType())) {
-////            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Access denied");
-////        }
+
 
         return ResponseEntity.ok(service.getAllEstablishments());
     }
