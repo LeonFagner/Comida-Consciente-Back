@@ -9,7 +9,7 @@ public enum DonationStatus {
     AVAILABLE,
     RESERVED,
     COMPLETED,
-    CANCELLED;
+    CANCELLED, COLLECTED;
 
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
     public static DonationStatus fromString(String value) {
