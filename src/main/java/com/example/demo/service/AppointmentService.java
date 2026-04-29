@@ -24,7 +24,7 @@ public class AppointmentService {
     private final DonationRepository donationRepository;
     private final UserRepository userRepository;
 
-    // CREATE
+
     @Transactional
     public AppointmentResponseDTO create(AppointmentRequestDTO dto) {
 
@@ -62,7 +62,7 @@ public class AppointmentService {
         return toDTO(repository.save(a));
     }
 
-    // GET ALL (do usuário)
+
     public List<AppointmentResponseDTO> getByRequester(String requesterId) {
         return repository.findByRequester_Id(requesterId)
                 .stream()
@@ -106,7 +106,7 @@ public class AppointmentService {
         return toDTO(repository.save(a));
     }
 
-    // CONCLUIR
+
     @Transactional
     public AppointmentResponseDTO complete(String id) {
 
@@ -118,7 +118,7 @@ public class AppointmentService {
 
         a.setStatus(AppointmentStatus.COMPLETED);
 
-        // 🔥 quando conclui, a doação vira coletada
+
         Donation donation = a.getDonation();
         donation.setStatus(DonationStatus.COLLECTED);
         donationRepository.save(donation);
@@ -138,7 +138,6 @@ public class AppointmentService {
 
         a.setStatus(AppointmentStatus.CANCELLED);
 
-        // 🔥 libera a doação novamente
         Donation donation = a.getDonation();
         donation.setStatus(DonationStatus.AVAILABLE);
         donationRepository.save(donation);
@@ -146,7 +145,7 @@ public class AppointmentService {
         return toDTO(repository.save(a));
     }
 
-    // PENDENTES
+
     public List<AppointmentResponseDTO> getPending() {
         return repository.findByStatus(AppointmentStatus.PENDING)
                 .stream()
@@ -154,7 +153,7 @@ public class AppointmentService {
                 .toList();
     }
 
-    // AUX
+
     private Appointment findById(String id) {
         return repository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Agendamento não encontrado"));
