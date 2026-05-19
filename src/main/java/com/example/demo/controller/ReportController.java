@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
@@ -38,4 +39,17 @@ public class ReportController {
 
         return ResponseEntity.ok(service.getServedRegions());
     }
+    @GetMapping("/donations-by-period")
+    public ResponseEntity<List<DonationsByPeriodDTO>> donationsByPeriod() {
+
+        return ResponseEntity.ok(service.getDonationsByPeriod());
+    }
+
+    @GetMapping("/saved-food")
+    public ResponseEntity<BigDecimal> savedFood() {
+
+        return ResponseEntity.ok(service.getSavedFood());
+    }
+
+
 }

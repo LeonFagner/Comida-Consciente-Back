@@ -5,6 +5,7 @@ import com.example.demo.repository.ReportRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -40,4 +41,21 @@ public class ReportService {
 
         return new EnvironmentalImpactDTO(co2, water);
     }
+    public List<DonationsByPeriodDTO> getDonationsByPeriod() {
+
+        return repository.donationsByPeriod()
+                .stream()
+                .map(obj -> new DonationsByPeriodDTO(
+                        obj[0].toString(),
+                        ((Number) obj[1]).longValue()
+                ))
+                .toList();
+    }
+
+    public BigDecimal getSavedFood() {
+
+        return repository.totalFoodSaved();
+    }
+
+
 }
